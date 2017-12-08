@@ -30,3 +30,16 @@ dependencies {
   compile 'com.github.SMontiel:SimpleJDBC:0.0.1'
 }
 ```
+
+## How do I use SimpleJDBC?
+
+## Build
+
+Building SimpleJDBC with Gradle is fairly straight forward:
+
+```
+git clone https://github.com/SMontiel/SimpleJDBC.git
+cd SimpleJDBC
+./gradlew jar
+```
+
