@@ -1,6 +1,6 @@
 # SimpleJDBC
 
-[![](https://jitpack.io/v/SMontiel/SimpleJDBC.svg)](https://jitpack.io/#SMontiel/SimpleJDBC)
+[![](https://jitpack.io/v/SMontiel/SimpleJDBC.svg)](https://jitpack.io/#SMontiel/SimpleJDBC) [![Build Status](https://travis-ci.org/SMontiel/SimpleJDBC.svg?branch=master)](https://travis-ci.org/SMontiel/SimpleJDBC)
 
 Java library for simple SQL querying (through JDBC) :slightly_smiling_face:
 
@@ -42,4 +42,3 @@ git clone https://github.com/SMontiel/SimpleJDBC.git
 cd SimpleJDBC
 ./gradlew jar
 ```
-
