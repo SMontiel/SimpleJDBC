@@ -92,7 +92,7 @@ We'll see in console something like:
 3 :: Edmond :: Dantès
 ```
 
-Then if we want to get only one person record:
+So, if we want to get only one record of a person:
 
 ```java
 Person person = db.query("SELECT * FROM person WHERE id = 3")
