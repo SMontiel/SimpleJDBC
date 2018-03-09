@@ -8,9 +8,9 @@ import java.sql.Statement;
 /**
  * Created by Salvador Montiel on 28/november/2017.
  */
-class Utils {
+public class Utils {
 
-    static void printSQLException(SQLException ex) {
+    public static void printSQLException(SQLException ex) {
 
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
