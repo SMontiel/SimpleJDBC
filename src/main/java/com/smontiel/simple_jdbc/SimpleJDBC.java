@@ -19,7 +19,7 @@ public final class SimpleJDBC implements Executor {
     private DataSource dataSource;
 
     private SimpleJDBC(DataSource dataSource) {
-        this.dataSource = dataSource;
+        this.dataSource = Utils.checkNotNull(dataSource);
     }
 
     @Override

@@ -89,5 +89,10 @@ public class Utils {
         }
     }
 
+    public static <T> T checkNotNull(T instance) {
+        if (instance == null) throw new NullPointerException("Instance is null!");
+        return instance;
+    }
+
     private Utils() {}
 }
