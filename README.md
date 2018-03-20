@@ -27,7 +27,7 @@ allprojects {
 
 ```groovy
 dependencies {
-  compile 'com.github.SMontiel:SimpleJDBC:0.0.1'
+  compile 'com.github.SMontiel:SimpleJDBC:0.0.2'
 }
 ```
 
@@ -72,8 +72,9 @@ INSERT INTO person(id, name, last_name) VALUES(3, "Edmond", "Dantès");
 If we want to see all records, we have to do this:
 
 ```java
-List<String> list = db.query("SELECT * FROM person")
-  .any(new ThrowingFunction<ResultSet, String>() {
+// Java 7
+List<String> list = 
+  db.any("SELECT * FROM person", new ThrowingFunction<ResultSet, String>() {
       @Override
       public String apply(ResultSet rs) throws Exception {
         return rs.getString("id")
@@ -82,6 +83,13 @@ List<String> list = db.query("SELECT * FROM person")
       }
   });
 for (String person : list) System.out.println(person);
+
+// Java 8
+List<String> list = db.any("SELECT * FROM person", 
+                rs -> rs.getString("id") 
+                        + " :: " + rs.getString("name") 
+                        + " :: " + rs.getString("last_name"));
+list.forEach(System.out::println);
 ```
 
 We'll see in console something like:
@@ -95,8 +103,9 @@ We'll see in console something like:
 So, if we want to get only one record of a person:
 
 ```java
-Person person = db.query("SELECT * FROM person WHERE id = 3")
-  .one(new ThrowingFunction<ResultSet, Person>() {
+String QUERY = "SELECT * FROM person WHERE id = 3";
+// Java 7
+Person person = db.one(QUERY, new ThrowingFunction<ResultSet, Person>() {
       @Override
       public Person apply(ResultSet rs) throws Exception {
         String name = rs.getString("name");
@@ -106,6 +115,15 @@ Person person = db.query("SELECT * FROM person WHERE id = 3")
 
 System.out.println(person.getName() + " " + person.getLastName()
                   + " is The Count of Monte Cristo.");
+
+// Java 8
+Person person = db.one(QUERY, rs -> {
+        String name = rs.getString("name");
+        return new Person(name, rs.getString("last_name"));
+    });
+
+System.out.println(person.getName() + " " + person.getLastName()
+        + " is The Count of Monte Cristo.");
 ```
 
 We expect in console:
@@ -121,5 +139,9 @@ Building `SimpleJDBC` with Gradle is fairly straight forward:
 ```bash
 git clone https://github.com/SMontiel/SimpleJDBC.git
 cd SimpleJDBC
-gradle jar
+./gradlew jar
 ```
+
+## Contributing
+
+Do you want to contribute or give me a hand a hand with the documentation? I will appreciate that!
