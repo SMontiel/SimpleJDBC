@@ -40,7 +40,6 @@ class ManyOrNoneStrategy<T> implements Strategy<List<T>>, Sqlable, Handlerable<R
 
     @Override
     public List<T> execute(Connection connection) {
-        System.out.println("ManyOrNoneStrategy: " + connection);
         try (Connection conn = connection;
              PreparedStatement stmt = conn.prepareStatement(sqlQuery);
              ResultSet resultSet = stmt.executeQuery()) {

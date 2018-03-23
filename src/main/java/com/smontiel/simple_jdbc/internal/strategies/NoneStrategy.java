@@ -30,7 +30,6 @@ class NoneStrategy implements Strategy<Integer>, Sqlable {
 
     @Override
     public Integer execute(Connection connection) {
-        System.out.println("NoneStrategy: " + connection);
         try (Connection conn = connection;
              PreparedStatement stmt = conn.prepareStatement(sqlQuery);
              ResultSet resultSet = stmt.executeQuery()) {

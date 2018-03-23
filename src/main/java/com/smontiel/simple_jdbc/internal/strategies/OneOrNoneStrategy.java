@@ -38,7 +38,6 @@ class OneOrNoneStrategy<T> implements Strategy<T>, Sqlable, Handlerable<ResultSe
 
     @Override
     public T execute(Connection connection) {
-        System.out.println("OneOrNoneStrategy: " + connection);
         try (Connection conn = connection;
              PreparedStatement stmt = conn.prepareStatement(sqlQuery);
              ResultSet resultSet = stmt.executeQuery()) {

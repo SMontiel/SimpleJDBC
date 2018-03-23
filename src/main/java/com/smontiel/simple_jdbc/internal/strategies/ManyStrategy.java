@@ -40,7 +40,6 @@ class ManyStrategy<T> implements Strategy<List<T>>, Sqlable, Handlerable<ResultS
 
     @Override
     public List<T> execute(Connection connection) {
-        System.out.println("ManyStrategy: " + connection);
         try (Connection conn = connection;
              PreparedStatement stmt = conn.prepareStatement(sqlQuery);
              ResultSet resultSet = stmt.executeQuery()) {
