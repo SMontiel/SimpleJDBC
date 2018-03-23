@@ -38,7 +38,6 @@ class OneStrategy<T> implements Strategy<T>, Sqlable, Handlerable<ResultSet, T> 
 
     @Override
     public T execute(Connection connection) {
-        System.out.println("OneStrategy: " + connection);
         try (Connection conn = connection;
              PreparedStatement stmt = conn.prepareStatement(sqlQuery);
              ResultSet resultSet = stmt.executeQuery()) {

@@ -33,7 +33,6 @@ class TransactionStrategy<R> implements Strategy<R>, Handlerable<Executor, R> {
     @Override
     public R execute(Connection connection) {
         Connection noCloseConnection = new NoCloseConnection(connection);
-        System.out.println("TransactionStrategy: " + noCloseConnection);
         R instance;
         try {
             noCloseConnection.setAutoCommit(false);
