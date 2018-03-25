@@ -9,7 +9,6 @@ import com.smontiel.simple_jdbc.internal.Strategy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +50,7 @@ class ManyOrNoneStrategy<T> implements Strategy<List<T>>, Sqlable, Handlerable<R
             }
             return list;
         } catch (Exception e) {
-            Utils.printSQLException((SQLException) e);
+            Utils.printSQLException(e);
             throw new RuntimeException(e);
         }
     }

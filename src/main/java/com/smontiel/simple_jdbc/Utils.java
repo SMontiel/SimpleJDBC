@@ -10,9 +10,11 @@ import java.sql.Statement;
  */
 public class Utils {
 
-    public static void printSQLException(SQLException ex) {
+    public static void printSQLException(Exception exception) {
+        if (exception == null || !(exception instanceof SQLException)) return;
 
-        for (Throwable e : ex) {
+        SQLException sqlException = (SQLException) exception;
+        for (Throwable e : sqlException) {
             if (e instanceof SQLException) {
                 if (!ignoreSQLException(
                         ((SQLException) e).
@@ -27,7 +29,7 @@ public class Utils {
 
                     System.err.println("Message: " + e.getMessage());
 
-                    Throwable t = ex.getCause();
+                    Throwable t = sqlException.getCause();
                     while(t != null) {
                         System.out.println("Cause: " + t);
                         t = t.getCause();

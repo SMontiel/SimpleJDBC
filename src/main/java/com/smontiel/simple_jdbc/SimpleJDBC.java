@@ -64,7 +64,7 @@ public final class SimpleJDBC implements Executor {
         try {
             return s.execute(dataSource.getConnection());
         } catch (SQLException e) {
-            Utils.printSQLException((SQLException) e);
+            Utils.printSQLException(e);
             throw new RuntimeException(e);
         }
     }
