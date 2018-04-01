@@ -7,7 +7,6 @@ import com.smontiel.simple_jdbc.internal.Strategy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Created by Salvador Montiel on 08/mar/2018.
@@ -39,8 +38,8 @@ class NoneStrategy implements Strategy<Integer>, Sqlable {
 
             Integer instance = stmt.getUpdateCount();
             return instance;
-        } catch (SQLException e) {
-            Utils.printSQLException((SQLException) e);
+        } catch (Exception e) {
+            Utils.printSQLException(e);
             throw new RuntimeException(e);
         }
     }

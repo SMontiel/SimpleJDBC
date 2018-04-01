@@ -9,7 +9,6 @@ import com.smontiel.simple_jdbc.internal.Strategy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Created by Salvador Montiel on 08/mar/2018.
@@ -51,7 +50,7 @@ class OneOrNoneStrategy<T> implements Strategy<T>, Sqlable, Handlerable<ResultSe
             }
             return instance;
         } catch (Exception e) {
-            Utils.printSQLException((SQLException) e);
+            Utils.printSQLException(e);
             throw new RuntimeException(e);
         }
     }

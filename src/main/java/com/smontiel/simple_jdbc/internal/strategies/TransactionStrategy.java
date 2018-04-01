@@ -8,7 +8,6 @@ import com.smontiel.simple_jdbc.internal.Strategy;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -39,12 +38,12 @@ class TransactionStrategy<R> implements Strategy<R>, Handlerable<Executor, R> {
             instance = handler.apply(new TransactionExecutor(noCloseConnection));
             noCloseConnection.commit();
         } catch (Exception e ) {
-            Utils.printSQLException((SQLException) e);
+            Utils.printSQLException(e);
             if (noCloseConnection != null) {
                 try {
                     System.err.print("Transaction is being rolled back");
                     noCloseConnection.rollback();
-                } catch(SQLException excep) {
+                } catch(Exception excep) {
                     Utils.printSQLException(excep);
                     throw new RuntimeException(excep);
                 }
@@ -57,7 +56,7 @@ class TransactionStrategy<R> implements Strategy<R>, Handlerable<Executor, R> {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 Utils.printSQLException(e);
                 throw new RuntimeException(e);
             }
@@ -81,55 +80,34 @@ class TransactionStrategy<R> implements Strategy<R>, Handlerable<Executor, R> {
 
         @Override
         public <T> List<T> many(String sqlQuery, ThrowingFunction<ResultSet, T> handler) {
-            try {
-                Strategy<List<T>> s = StrategyFactory.many(sqlQuery, handler);
-                return s.execute(connection);
-            } catch (Exception e) {
-                Utils.printSQLException((SQLException) e);
-                throw new RuntimeException(e);
-            }
+            return execute(StrategyFactory.many(sqlQuery, handler));
         }
 
         @Override
         public <T> List<T> manyOrNone(String sqlQuery, ThrowingFunction<ResultSet, T> handler) {
-            try {
-                Strategy<List<T>> s = StrategyFactory.manyOrNone(sqlQuery, handler);
-                return s.execute(connection);
-            } catch (Exception e) {
-                Utils.printSQLException((SQLException) e);
-                throw new RuntimeException(e);
-            }
+            return execute(StrategyFactory.manyOrNone(sqlQuery, handler));
         }
 
         @Override
         public Integer none(String sqlQuery) {
-            try {
-                Strategy<Integer> s = StrategyFactory.none(sqlQuery);
-                return s.execute(connection);
-            } catch (Exception e) {
-                Utils.printSQLException((SQLException) e);
-                throw new RuntimeException(e);
-            }
+            return execute(StrategyFactory.none(sqlQuery));
         }
 
         @Override
         public <T> T one(String sqlQuery, ThrowingFunction<ResultSet, T> handler) {
-            try {
-                Strategy<T> s = StrategyFactory.one(sqlQuery, handler);
-                return s.execute(connection);
-            } catch (Exception e) {
-                Utils.printSQLException((SQLException) e);
-                throw new RuntimeException(e);
-            }
+            return execute(StrategyFactory.one(sqlQuery, handler));
         }
 
         @Override
         public <T> T oneOrNone(String sqlQuery, ThrowingFunction<ResultSet, T> handler) {
+            return execute(StrategyFactory.oneOrNone(sqlQuery, handler));
+        }
+
+        private <S> S execute(Strategy<S> s) {
             try {
-                Strategy<T> s = StrategyFactory.oneOrNone(sqlQuery, handler);
                 return s.execute(connection);
             } catch (Exception e) {
-                Utils.printSQLException((SQLException) e);
+                Utils.printSQLException(e);
                 throw new RuntimeException(e);
             }
         }

@@ -9,7 +9,6 @@ import com.smontiel.simple_jdbc.internal.Strategy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +52,7 @@ class ManyStrategy<T> implements Strategy<List<T>>, Sqlable, Handlerable<ResultS
                 throw new IllegalStateException("No data returned from the query.");
             } else return list;
         } catch (Exception e) {
-            Utils.printSQLException((SQLException) e);
+            Utils.printSQLException(e);
             throw new RuntimeException(e);
         }
     }
