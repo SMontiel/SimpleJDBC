@@ -9,7 +9,7 @@ repositories {
 
 jar {
     baseName = 'SimpleJDBC'
-    version =  '0.0.3'
+    version =  '0.1.0'
 }
 
 sourceCompatibility = 1.7

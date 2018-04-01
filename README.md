@@ -27,7 +27,7 @@ allprojects {
 
 ```groovy
 dependencies {
-  compile 'com.github.SMontiel:SimpleJDBC:0.0.3'
+  compile 'com.github.SMontiel:SimpleJDBC:0.1.0'
 }
 ```
 
